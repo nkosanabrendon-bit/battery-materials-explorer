@@ -1,3 +1,8 @@
 venv/
 __pycache__/
 .DS_Store
+graphs.pt
+battery_structures.json
+li_batteries.csv
+train2.log
+nohup.out
