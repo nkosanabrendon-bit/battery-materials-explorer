@@ -15,6 +15,17 @@ Test set: 389 materials whose formulas were never seen in training.
 
 GNN v2 beat the Random Forest baseline, but the result is modest.
 
+## Repeated on 3 different splits
+
+Same data, same models, 3 different random splits by formula (seeds 1, 2, 3). Script: seeds_test.py.
+
+| Model | Test r2 (mean, std over 3 splits) | Test MAE in V (mean) |
+|---|---|---|
+| Random Forest | 0.442 (std 0.074) | 0.530 |
+| GNN v2 | 0.615 (std 0.099) | 0.424 |
+
+The GNN had a higher r2 and a lower MAE on all 3 splits. Scores changed a lot between splits (GNN r2 from 0.48 to 0.70), so a single split can be misleading.
+
 ## How it works
 1. get_batteries.py downloads 2,774 lithium insertion electrodes from the Materials Project.
 2. clean.py removes rows that are not realistic batteries (voltage 1 to 5.5 V, capacity 10 to 700 mAh/g, energy 50 to 2000 Wh/kg). 2,514 rows are kept.
@@ -26,7 +37,7 @@ GNN v2 beat the Random Forest baseline, but the result is modest.
 The data is split by formula (70 percent train, 15 percent validation, 15 percent test), so the same material never appears in two piles.
 
 ## Honest caveats
-- One split and one random seed. With 389 test materials, a gap of 0.06 in r2 may be partly luck. Repeating with several seeds is the next step.
+- Only 3 splits were tested. That is better than 1, but still few, so treat the gap as a good sign, not proof.
 - The values are computed by DFT, not measured in a lab. Some computed values are unrealistic, which is why the cleaning step exists. The cleaning ranges were chosen by hand.
 - Only the discharged structure is used. The charged structure is not used.
 - An r2 of 0.48 is not good enough to pick real battery materials.
