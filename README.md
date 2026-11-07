@@ -47,3 +47,15 @@ The data is split by formula (70 percent train, 15 percent validation, 15 percen
 1. Get a free API key from the Materials Project and store it in the MP_API_KEY environment variable. Never put the key in the code.
 2. Make a virtual environment and install: mp-api pandas torch torch_geometric scikit-learn "numpy<2"
 3. Run the scripts in the order listed under How it works.
+
+## Does it work for sodium? (follow-up experiment)
+
+The sodium scripts are in the sodium folder (same pipeline with working_ion set to Na). Sodium has far less data: 416 electrodes downloaded, 361 after cleaning, 360 with structures.
+
+| Test | Materials | Random Forest r2 | GNN v2 r2 | GNN better on |
+|---|---|---|---|---|
+| Lithium, all data | 2,512 | 0.442 | 0.615 | 3 of 3 splits |
+| Lithium, 360 random materials | 360 | 0.205 | 0.454 | 3 of 3 splits |
+| Sodium | 360 | 0.400 | 0.356 | 2 of 3 splits |
+
+On sodium the GNN did not beat the Random Forest on average (MAE 0.626 V against 0.575 V). A lithium set cut to the same size still favored the GNN, so small data size alone does not explain the sodium result. The cause is not known. Possible reasons that were not tested: sodium voltage may depend more on composition, and the 1.0 to 5.5 V cleaning range may remove different materials for sodium. Each test pile has only about 50 materials and scores changed a lot between splits (GNN r2 from 0.23 to 0.49 on sodium, 0.19 to 0.65 on small lithium), so these results are weak evidence either way. The sodium set is mostly cathode-like materials because low-voltage anodes were cleaned out.
