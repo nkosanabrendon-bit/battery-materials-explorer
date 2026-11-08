@@ -1,21 +1,6 @@
 # Battery Materials Explorer
 
-Live demo (precomputed predictions, not for real materials selection): https://python3 - << 'PY'
-import subprocess
-url = subprocess.check_output(["pbpaste"]).decode().strip()
-if not url.startswith("http"):
-    url = "https://" + url
-assert "streamlit.app" in url, "Copy the app link first"
-t = open("README.md").read()
-note = "\nLive demo (precomputed predictions, not for real materials selection): " + url + "\nDemo app code: https://github.com/nkosanabrendon-bit/battery-voltage-app\n"
-first = t.index("\n")
-t = t[:first + 1] + note + t[first + 1:]
-open("README.md", "w").write(t)
-print("Added link:", url)
-PY
-head -6 README.md
-git add README.md
-git commit -m "Add link to live demo app"
+Live demo (precomputed predictions, not for real materials selection): https://battery-voltage-app-kwuamye3zgpan4p7nethbp.streamlit.app
 Demo app code: https://github.com/nkosanabrendon-bit/battery-voltage-app
 
 Predicting the average voltage of lithium battery electrode materials from their crystal structure, using a graph neural network (GNN). Data comes from the Materials Project.
